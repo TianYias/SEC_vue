@@ -18,7 +18,7 @@
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-message"></i>
-            <span slot="title">导航一</span>
+            <span slot="title">企业模块</span>
           </template>
           <el-menu-item-group>
             <template slot="title">分组一</template>
@@ -36,7 +36,7 @@
         <el-submenu index="2">
           <template slot="title">
             <i class="el-icon-menu"></i>
-            <span slot="title">导航二</span>
+            <span slot="title">学校模块</span>
           </template>
           <el-menu-item-group>
             <template slot="title">分组一</template>
@@ -75,7 +75,7 @@
 
       <el-header style="font-size: 12px; border-bottom: 1px solid #ccc; line-height: 60px; display: flex">
         <div style="flex: 1; font-size: 22px">
-          <span :class="collapseBthClass"  @click="collapse"/>
+          <span :class="collapseBthClass" @click="collapse"/>
         </div>
         <el-breadcrumb separator-class="el-icon-arrow-right" style="flex: 30; margin-top: 22px">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
@@ -84,7 +84,7 @@
           <el-breadcrumb-item>活动详情</el-breadcrumb-item>
         </el-breadcrumb>
         <el-dropdown style="width: 70px">
-          <span>王小虎</span>
+          <span>用户</span>
           <i class="el-icon-arrow-down" style="margin-left: 8px"></i>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>个人信息</el-dropdown-item>
@@ -96,16 +96,17 @@
 
       <el-main>
         <div style="padding: 10px 0">
-          <el-input style="width: 220px" suffix-icon="el-icon-search" placeholder="请输入名称"/>
-          <el-button class="ml-5" type="primary">搜索</el-button>
+          <el-input style="width: 220px" suffix-icon="el-icon-search" placeholder="请输入名称" v-model="newQueryString"
+                    clearable @clear="clear"/>
+          <el-button class="ml-5" type="primary" @click="findPage">搜索</el-button>
           <el-button class="ml-5" type="primary">新增</el-button>
         </div>
         <el-table :data="tableData" stripe border :header-cell-style="{background:'#E0FFFF'}">
-          <el-table-column prop="date" label="日期" width="140">
+          <el-table-column prop="id" label="id" width="140">
           </el-table-column>
           <el-table-column prop="name" label="姓名" width="120">
           </el-table-column>
-          <el-table-column prop="address" label="地址">
+          <el-table-column prop="sex" label="性别">
           </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
@@ -118,6 +119,7 @@
             @current-change="handleCurrentChange"
             background
             layout="total, jumper, prev, pager, next"
+            :current-page="currentPage"
             :page-size="pageSize"
             :total="total">
         </el-pagination>
@@ -128,21 +130,26 @@
 
 <script>
 
+import axios from "axios";
+
 export default {
   name: 'Home',
   data() {
-    const item = {
-      date: '2022-2-22',
-      name: '名字',
-      address: '地址市地址区'
-    };
+    // const item = {
+    //   date: '2022-2-22',
+    //   name: '名字',
+    //   address: '地址市地址区'
+    // };
     return {
-      tableData: Array(10).fill(item),
+      tableData: [],
       collapseBthClass: 'el-icon-s-fold',
       isCollapse: false,
       sideWidth: 200,
-      pageSize: 10,
-      total: 0
+      currentPage: 1,//当前页
+      pageSize: 10,//每页条数
+      total: 0,//总条数
+      queryString: null,//查询条件
+      newQueryString: null//查询框数据
     }
   },
   methods: {
@@ -157,11 +164,34 @@ export default {
         this.collapseBthClass = 'el-icon-s-fold'
       }
     },
+    //分页查询
+    findPage() {
+      if (this.QueryString != this.newQueryString) {
+        this.QueryString = this.newQueryString;
+        this.currentPage = 1;
+      }
+      var param = {
+        currentPage: this.currentPage,//页码
+        pageSize: this.pageSize,//每页记录数
+        queryString: this.newQueryString//查询条件
+      }
+      axios.post("http://localhost:8081/school/findPage", param).then((res) => {
+        this.tableData = res.data.rows;
+        this.total = res.data.total;
+      })
+    },
     //切换页码
     handleCurrentChange(currentPage) {
-
+      this.currentPage = currentPage;
+      this.findPage();
     },
-  }
+    clear() {
+      this.QueryString = null;
+    }
+  },
+  created() {
+    this.findPage();//vue初始化完成调用分页查询
+  },
 }
 
 </script>
