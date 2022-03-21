@@ -1,0 +1,371 @@
+<template>
+  <el-container style="height: 100vh;">
+    <el-aside :width="sideWidth + 'px'"
+              style="background-color: rgb(238, 241, 246); box-shadow: 2px 0 6px rgb(0 21 41 / 35%)">
+      <el-menu :default-openeds="['1']" style="min-height: 100vh; overflow-x: hidden"
+               background-color="rgb(48, 65, 86)"
+               text-color="#fff"
+               active-text-color="#EE7600"
+               unique-opened="true"
+               :collapse-transition="false"
+               :collapse="isCollapse">
+        <!--router="true" //点击利用index跳转-->
+        <div style="height: 60px; line-height: 60px; text-align: center">
+          <img src="../assets/logo.png"
+               style="width: 20px; position: relative; top: 5px; margin-left: 5px;margin-right: 5px">
+          <b style="color: white" v-show="!isCollapse">校企合作平台</b>
+        </div>
+        <el-submenu index="1">
+          <template slot="title">
+            <i class="el-icon-message"></i>
+            <span slot="title">企业模块</span>
+          </template>
+          <el-menu-item-group>
+            <template slot="title">分组一</template>
+            <el-menu-item index="/about">选项1</el-menu-item>
+            <el-menu-item index="1-2">选项2</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group title="分组2">
+            <el-menu-item index="1-3">选项3</el-menu-item>
+          </el-menu-item-group>
+          <el-submenu index="1-4">
+            <template slot="title">选项4</template>
+            <el-menu-item index="1-4-1">选项4-1</el-menu-item>
+          </el-submenu>
+        </el-submenu>
+        <el-submenu index="2">
+          <template slot="title">
+            <i class="el-icon-menu"></i>
+            <span slot="title">学校模块</span>
+          </template>
+          <el-menu-item-group>
+            <template slot="title">分组一</template>
+            <el-menu-item index="2-1">选项1</el-menu-item>
+            <el-menu-item index="2-2">选项2</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group title="分组2">
+            <el-menu-item index="2-3">选项3</el-menu-item>
+          </el-menu-item-group>
+          <el-submenu index="2-4">
+            <template slot="title">选项4</template>
+            <el-menu-item index="2-4-1">选项4-1</el-menu-item>
+          </el-submenu>
+        </el-submenu>
+        <el-submenu index="3">
+          <template slot="title"><i class="el-icon-setting"></i>
+            <span slot="title">导航三</span>
+          </template>
+          <el-menu-item-group>
+            <template slot="title">分组一</template>
+            <el-menu-item index="3-1">选项1</el-menu-item>
+            <el-menu-item index="3-2">选项2</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group title="分组2">
+            <el-menu-item index="3-3">选项3</el-menu-item>
+          </el-menu-item-group>
+          <el-submenu index="3-4">
+            <template slot="title">选项4</template>
+            <el-menu-item index="3-4-1">选项4-1</el-menu-item>
+          </el-submenu>
+        </el-submenu>
+      </el-menu>
+    </el-aside>
+
+    <el-container>
+
+      <el-header style="font-size: 12px; border-bottom: 1px solid #ccc; line-height: 60px; display: flex">
+        <div style="flex: 1; font-size: 22px">
+          <span :class="collapseBthClass" @click="collapse"/>
+        </div>
+        <el-breadcrumb separator-class="el-icon-arrow-right" style="flex: 30; margin-top: 22px">
+          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item>活动管理</el-breadcrumb-item>
+          <el-breadcrumb-item>活动列表</el-breadcrumb-item>
+          <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+        </el-breadcrumb>
+        <el-dropdown style="width: 70px">
+          <span>用户</span>
+          <i class="el-icon-arrow-down" style="margin-left: 8px"></i>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>个人信息</el-dropdown-item>
+            <el-dropdown-item>设置</el-dropdown-item>
+            <el-dropdown-item>退出</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </el-header>
+
+      <el-main>
+        <!--        搜索栏-->
+        <div style="padding: 10px 0">
+          <el-input style="width: 220px" suffix-icon="el-icon-search" placeholder="请输入名称/代码" v-model="newQueryString"
+                    clearable @clear="clear"/>
+          <el-button class="ml-5" type="primary" @click="findPage">搜索</el-button>
+          <el-button class="ml-5" type="primary" @click="handleShow([],'新增')">新增</el-button>
+        </div>
+
+        <!--        表格-->
+        <el-table :data="tableData" stripe border :header-cell-style="{background:'#E0FFFF'}">
+          <el-table-column type="index" label="序号" align="center"/>
+          <el-table-column prop="universityCode" label="学校代码"/>
+          <el-table-column prop="name" label="学校名称"/>
+          <el-table-column prop="password" label="登录密码"/>
+          <el-table-column prop="phone" label="学校电话"/>
+          <el-table-column prop="location" label="学校所在地"/>
+          <el-table-column label="学校校徽" width="70" align="center">
+            <template scope="scope">
+
+              <el-image
+                  style="width: 35px; height: 35px"
+                  :src="imgUrlHead + scope.row.schoolBadge"
+                  fit="fill">
+                <div slot="error" class="image-slot" style="font-size:200%">
+                  <i class="el-icon-picture-outline"></i>
+                </div>
+              </el-image>
+            </template>
+          </el-table-column>
+          <el-table-column prop="introduce" label="学校简介"/>
+          <el-table-column label="操作">
+            <template slot-scope="scope">
+              <el-button type="primary" @click="handleShow(scope.row, '编辑')">编辑<i class="el-icon-edit"/></el-button>
+              <el-button type="danger" @click="handleDelete(scope.row)">删除<i class="el-icon-delete"/></el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+
+        <!--        分页条-->
+        <el-pagination
+            @current-change="handleCurrentChange"
+            background
+            layout="total, jumper, prev, pager, next"
+            :current-page="currentPage"
+            :page-size="pageSize"
+            :total="total">
+        </el-pagination>
+
+        <!--        表单-->
+        <el-dialog :title="formName" :visible.sync="dialogFormVisible" :before-close="handleNoShow">
+          <el-form ref="dataForm" :model="formData" :rules="rules" label-position="right"
+                   label-width="100px">
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="学校代码" prop="universityCode">
+                  <el-input v-model="formData.universityCode"/>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="学校名称" prop="name">
+                  <el-input v-model="formData.name"/>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="登录密码" prop="password">
+                  <el-input v-model="formData.password"/>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="学校电话">
+                  <el-input v-model="formData.phone"/>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="学校所在地">
+                  <el-input v-model="formData.location"/>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="24">
+                <el-form-item label="上传校徽">
+                  <el-upload style="height: 70px; width: 70px"
+                             class="avatar-uploader"
+                             action="/school/upload"
+                             name="imgFile"
+                             :show-file-list="false"
+                             :on-success="handleAvatarSuccess"
+                             :before-upload="beforeAvatarUpload">
+                    <el-image
+                        v-if="formData.schoolBadge"
+                        style="width: 70px; height: 70px"
+                        :src="imgUrlHead + formData.schoolBadge"
+                        fit="fill">
+                    </el-image>
+                    <i style="font-size:35px" v-else class="el-icon-plus"></i>
+                  </el-upload>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="24">
+                <el-form-item label="学校简介">
+                  <el-input v-model="formData.introduce" type="textarea"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="handleNoShow()">取消</el-button>
+            <el-button type="primary" @click="handleSave()">确定</el-button>
+          </div>
+        </el-dialog>
+
+      </el-main>
+    </el-container>
+  </el-container>
+</template>
+
+<script>
+
+import Aside from "@/components/Aside";
+
+export default {
+  name: 'Home',
+  data() {
+    return {
+      tableData: [],//表格数据
+      formData: [],//表单数据
+      collapseBthClass: 'el-icon-s-fold',//收缩侧边栏图标
+      isCollapse: false,//是否收缩侧边栏
+      sideWidth: 200,//侧边栏宽度
+      currentPage: 1,//当前页
+      pageSize: 8,//每页条数
+      total: 0,//总条数
+      queryString: null,//查询条件
+      newQueryString: null,//新查询条件
+      imgUrlHead: "http://r8bdsbfy0.hd-bkt.clouddn.com/",//查询图片前缀
+      formName: null,//表单名字
+      dialogFormVisible: false,//新增表单是否可见
+      dialogFormVisible4Edit: true,//编辑表单是否可见
+      rules: {//校验规则
+        universityCode: [{required: true, message: '学校代码为必填项', trigger: 'blur'}],
+        name: [{required: true, message: '学校名称为必填项', trigger: 'blur'}],
+        password: [{required: true, message: '密码为必填项', trigger: 'blur'}]
+      }
+    }
+  },
+  methods: {
+    //删除
+    handleDelete(res) {
+      this.request.post("/school/delete?universityCode=" + res.universityCode
+      ).then(res => {
+        if (res) {
+          this.$message.success("删除成功")
+        } else {
+          this.$message.error("删除失败")
+        }
+      }).finally(() => {
+        this.findPage();
+      })
+    },
+
+    //保存
+    handleSave() {
+      this.request.post("/school/save", {
+        universityCode: this.formData.universityCode,
+        name: this.formData.name,
+        password: this.formData.password,
+        phone: this.formData.phone,
+        location: this.formData.location,
+        schoolBadge: this.formData.schoolBadge,
+        introduce: this.formData.introduce
+      }).then(res => {
+        if (res) {
+          this.$message.success("保存成功")
+        } else {
+          this.$message.error("保存失败")
+        }
+      }).finally(() => {
+        this.handleNoShow();
+      })
+    },
+
+    //显示编辑添加表单
+    handleShow(row, formName) {
+      this.formName = formName;
+      this.dialogFormVisible = true;
+      if (row != null) {
+        this.formData = row;
+      }
+    },
+
+    //关闭编辑添加表单
+    handleNoShow() {
+      this.dialogFormVisible = false;
+      this.$refs['dataForm'].resetFields();
+      this.findPage();
+    },
+
+    //分页查询
+    findPage() {
+      //判断查询条件是否改变
+      if (this.QueryString !== this.newQueryString) {
+        this.QueryString = this.newQueryString;
+        this.currentPage = 1;
+      }
+      this.request.post("/school/findPage", {
+        currentPage: this.currentPage,//页码
+        pageSize: this.pageSize,//每页记录数
+        queryString: this.newQueryString//查询条件
+      }).then(res => {
+        this.tableData = res.rows;
+        this.total = res.total;
+      })
+    },
+
+    //切换页码
+    handleCurrentChange(currentPage) {
+      this.currentPage = currentPage;
+      this.findPage();
+    },
+
+    //输入框清空事件
+    clear() {
+      this.QueryString = this.newQueryString;
+      this.findPage();
+    },
+
+    //文件上传成功后的钩子，response为服务端返回的值，file为当前上传的文件封装成的js对象
+    handleAvatarSuccess(res, file) {
+      this.imageUrl = res.data;
+    },
+
+    //上传图片之前执行
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === 'image/jpeg';
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG) {
+        this.$message.error('上传头像图片只能是 JPG 格式!');
+      }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!');
+      }
+      return isJPG && isLt2M;
+    },
+
+    //导航栏收缩展开
+    collapse() {
+      this.isCollapse = !this.isCollapse;
+      if (this.isCollapse) {
+        this.sideWidth = 64;
+        this.collapseBthClass = 'el-icon-s-unfold'
+      } else {
+        this.sideWidth = 200;
+        this.collapseBthClass = 'el-icon-s-fold'
+      }
+    },
+  },
+
+  components: [],
+
+  //vue初始化完成调用分页查询
+  created() {
+    this.findPage();
+  },
+}
+
+</script>
