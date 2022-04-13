@@ -14,13 +14,17 @@
            style="width: 20px; position: relative; top: 5px; margin-left: 5px;margin-right: 5px">
       <b style="color: white" v-show="!isCollapse">校企合作平台</b>
     </div>
+    <el-menu-item index="/home">
+      <i class="el-icon-menu"></i>
+      <span slot="title">首页</span>
+    </el-menu-item>
     <el-submenu index="1">
       <template slot="title">
         <i class="el-icon-message"></i>
         <span slot="title">账号管理</span>
       </template>
-      <el-menu-item index="/">企业管理</el-menu-item>
-      <el-menu-item index="/school">学校管理</el-menu-item>
+      <el-menu-item index="/admin/enterprise">企业管理</el-menu-item>
+      <el-menu-item index="/admin/school">学校管理</el-menu-item>
       <el-menu-item index="/admin/student">学生管理</el-menu-item>
     </el-submenu>
     <el-submenu index="2">

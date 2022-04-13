@@ -1,4 +1,5 @@
 import axios from 'axios'
+import ElementUI from "element-ui";
 
 const request = axios.create({
     baseURL: 'http://localhost:8081',//地址前缀
@@ -12,7 +13,8 @@ request.interceptors.request.use(config => {
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
     let user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
     if (user) {
-        config.headers['token'] = user.token;  // 设置请求头
+        config.headers['token'] = user.token;  // 设置请求头token
+        config.headers['loginType'] = user.type; // 设置请求头类型
     }
     return config
 }, error => {
@@ -32,6 +34,20 @@ request.interceptors.response.use(
         if (typeof res === 'string') {
             res = res ? JSON.parse(res) : res
         }
+        if (res.code === "200") {
+            /*ElementUI.Message({
+                message: res.message,
+                type: 'success'
+            })*/
+        } else if (res.code === "250") {
+
+        } else {
+            ElementUI.Message({
+                message: res.message,
+                type: 'error'
+            })
+        }
+
         return res;
     },
     error => {

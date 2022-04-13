@@ -11,12 +11,20 @@ const routes = [
         meta: {
             title: "首页"
         },
-        //redirect: '/home',
+        redirect: '/home',
         children: [
+            {
+                path: 'home',
+                name: 'Home',
+                component: () => import('../views/Home'),
+                meta: {
+                    title: "数据展示"
+                }
+            },
             {
                 path: 'admin',
                 name: 'Admin',
-                //component: () => import('../views/School'),
+                component: () => import('../views/Admin'),
                 meta: {
                     title: "账号管理"
                 },
@@ -30,22 +38,30 @@ const routes = [
                         }
                     },
                     {
-                        path: 'home',
-                        name: 'Home',
-                        component: () => import('../views/Home'),
+                        path: 'enterprise',
+                        name: 'Enterprise',
+                        component: () => import('../views/Enterprise'),
                         meta: {
-                            title: "首页"
+                            title: "企业管理"
                         }
-                    }
+                    },
+                    {
+                        path: 'school',
+                        name: 'School',
+                        component: () => import('../views/School'),
+                        meta: {
+                            title: "学校管理"
+                        }
+                    },
+                    {
+                        path: 'student',
+                        name: 'Student',
+                        component: () => import('../views/Student'),
+                        meta: {
+                            title: "学生管理"
+                        }
+                    },
                 ]
-            },
-            {
-                path: 'school',
-                name: 'School',
-                component: () => import('../views/School'),
-                meta: {
-                    title: "学校管理"
-                }
             },
         ]
     },
@@ -66,12 +82,22 @@ const routes = [
         },
     },
     {
-        path: '/about',
-        name: 'About',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+        path: '/front',
+        name: 'Front',
+        component: () => import('../views/front/Front'),
+        meta: {
+            title: "主界面"
+        },
+        children: [
+            {
+                path: 'home',
+                name: 'Home',
+                component: () => import('../views/front/Home'),
+                meta: {
+                    title: "主页"
+                },
+            },
+        ]
     }
 ]
 

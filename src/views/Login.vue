@@ -23,7 +23,8 @@
             </el-option>
           </el-select>
           <el-button type="primary" size="small" aria-autocomplete="off" @click="login">登录</el-button>
-          <el-button type="warning" size="small" aria-autocomplete="off" @click="$router.push('/register')">注册</el-button>
+          <el-button type="warning" size="small" aria-autocomplete="off" @click="$router.push('/register')">注册
+          </el-button>
         </el-form-item>
 
       </el-form>
@@ -73,11 +74,19 @@ export default {
         if (valid) {
           this.request.post("/login", this.user).then(res => {
             if (res.code === '200') {
-              localStorage.setItem("user",JSON.stringify(res.data)) //存储用户信息到浏览器
-              this.$router.push("/")
+              localStorage.setItem("user", JSON.stringify(res.data)) //存储用户信息到浏览器
               this.$message.success("登录" + res.message)
+              switch (this.user.type) {
+                case '1':
+                case '2':
+                case '3':
+                  this.$router.push("/front/home")
+                  break;
+                case '4':
+                  this.$router.push("/")
+              }
             } else {
-              this.$message.error(res.message)
+              //this.$message.error(res.message)
             }
           })
         } else {
@@ -92,7 +101,7 @@ export default {
 <style scoped>
 .Wrapper {
   height: 100vh;
-  background-image: linear-gradient(to bottom right, #fc466b, #3f5efb);
+  background-image: linear-gradient(to bottom right, #00FFFF, #fc466b);
   overflow: hidden;
 }
 </style>

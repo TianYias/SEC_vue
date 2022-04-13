@@ -1,22 +1,24 @@
 <template>
-  <el-container style="height: 100vh;">
-    <el-aside :width="sideWidth + 'px'"
-              style="background-color: rgb(238, 241, 246); box-shadow: 2px 0 6px rgb(0 21 41 / 35%)">
-      <Aside :isCollapse="isCollapse"/>
-    </el-aside>
+  <div>
+    <el-container style="height: 100vh;">
+      <el-aside :width="sideWidth + 'px'"
+                style="background-color: rgb(238, 241, 246); box-shadow: 2px 0 6px rgb(0 21 41 / 35%)">
+        <Aside :isCollapse="isCollapse"/>
+      </el-aside>
 
-    <el-container>
+      <el-container>
 
-      <el-header>
-        <Header :collapse="collapse" :collapse-bth-class="collapseBthClass"/>
-      </el-header>
+        <el-header>
+          <Header :collapse="collapse" :collapse-bth-class="collapseBthClass"/>
+        </el-header>
 
-      <el-main>
-        <!--        表示当前页面的子路由会在<router-view/>里面展示-->
-        <router-view/>
-      </el-main>
+        <el-main>
+          <!--        表示当前页面的子路由会在<router-view/>里面展示-->
+          <router-view/>
+        </el-main>
+      </el-container>
     </el-container>
-  </el-container>
+  </div>
 </template>
 
 <script>

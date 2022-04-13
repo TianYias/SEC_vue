@@ -22,8 +22,8 @@
                 :value="item.value">
             </el-option>
           </el-select>
-          <el-button type="primary" size="small" aria-autocomplete="off" @click="login">确定</el-button>
-          <el-button type="warning" size="small" aria-autocomplete="off">返回登录</el-button>
+          <el-button type="primary" size="small" aria-autocomplete="off" @click="login">注册</el-button>
+          <el-button type="warning" size="small" aria-autocomplete="off">登录</el-button>
         </el-form-item>
 
       </el-form>

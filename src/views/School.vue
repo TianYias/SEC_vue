@@ -18,7 +18,6 @@
       <el-table-column prop="location" label="学校所在地"/>
       <el-table-column label="学校校徽" width="70" align="center">
         <template scope="scope">
-
           <el-image
               style="width: 35px; height: 35px"
               :src="imgUrlHead + scope.row.schoolBadge"
@@ -30,7 +29,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="introduce" label="学校简介"/>
-      <el-table-column label="操作">
+      <el-table-column label="操作" width="170">
         <template slot-scope="scope">
           <el-button type="primary" @click="handleShow(scope.row, '编辑')">编辑<i class="el-icon-edit"/></el-button>
           <el-button type="danger" @click="handleDelete(scope.row)">删除<i class="el-icon-delete"/></el-button>
@@ -88,18 +87,19 @@
             <el-form-item label="上传校徽">
               <el-upload style="height: 70px; width: 70px"
                          class="avatar-uploader"
-                         action="/school/upload"
+                         action="http://localhost:8081/upload"
+                         :auto-upload=true
                          name="imgFile"
                          :show-file-list="false"
                          :on-success="handleAvatarSuccess"
                          :before-upload="beforeAvatarUpload">
                 <el-image
                     v-if="formData.schoolBadge"
-                    style="width: 70px; height: 70px"
                     :src="imgUrlHead + formData.schoolBadge"
-                    fit="fill">
-                </el-image>
-                <i style="font-size:35px" v-else class="el-icon-plus"></i>
+                    fit="fill"
+                    style="width: 70px; height: 70px"
+                />
+                <i v-else style="font-size:35px" class="el-icon-plus"></i>
               </el-upload>
             </el-form-item>
           </el-col>
@@ -132,7 +132,7 @@ export default {
       total: 0,//总条数
       queryString: null,//查询条件
       newQueryString: null,//新查询条件
-      imgUrlHead: "http://r8bdsbfy0.hd-bkt.clouddn.com/",//查询图片前缀
+      imgUrlHead: "http://r9lhttmxk.hd-bkt.clouddn.com/",//查询图片前缀
       formName: null,//表单名字
       dialogFormVisible: false,//新增表单是否可见
       dialogFormVisible4Edit: true,//编辑表单是否可见
@@ -146,16 +146,27 @@ export default {
   methods: {
     //删除
     handleDelete(res) {
-      this.request.post("/school/delete?universityCode=" + res.universityCode
-      ).then(res => {
-        if (res) {
-          this.$message.success("删除成功")
-        } else {
-          this.$message.error("删除失败")
-        }
-      }).finally(() => {
-        this.findPage();
-      })
+      this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.request.post("/school/delete?universityCode=" + res.universityCode
+        ).then(res => {
+          if (res) {
+            this.$message.success("删除成功")
+          } else {
+            this.$message.error("删除失败")
+          }
+        }).finally(() => {
+          this.findPage();
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
     },
 
     //保存
@@ -226,7 +237,7 @@ export default {
 
     //文件上传成功后的钩子，response为服务端返回的值，file为当前上传的文件封装成的js对象
     handleAvatarSuccess(res, file) {
-      this.imageUrl = res.data;
+      this.formData.schoolBadge = res.data;
     },
 
     //上传图片之前执行
