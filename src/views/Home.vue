@@ -1,5 +1,9 @@
+<!--前台主界面-->
 <template>
   <div>
+    <div>
+      <h1>欢迎使用校企合作平台</h1>
+    </div>
     <el-row :gutter="10" style="margin-bottom: 40px">
       <el-col :span="6">
         <el-card>
@@ -26,11 +30,11 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-row>
+<!--    <el-row>
       <el-col>
         <div id="main" style="width: 500px; height: 400px"></div>
       </el-col>
-    </el-row>
+    </el-row>-->
   </div>
 </template>
 

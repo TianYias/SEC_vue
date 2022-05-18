@@ -11,7 +11,7 @@ const routes = [
         meta: {
             title: "首页"
         },
-        redirect: '/home',
+        redirect: '/login',
         children: [
             {
                 path: 'home',
@@ -63,6 +63,42 @@ const routes = [
                     },
                 ]
             },
+            {
+                path: 'Maintain',
+                name: 'Maintain',
+                component: () => import('../views/Maintain'),
+                meta: {
+                    title: "平台维护"
+                },
+                children: [
+                    {
+                        path: 'cooperation',
+                        name: 'Cooperation',
+                        component: () => import('../views/Cooperation'),
+                        meta: {
+                            title: "校企合作管理"
+                        }
+                    },
+                ]
+            },
+            {
+                path: 'check',
+                name: 'Check',
+                component: () => import('../views/Check'),
+                meta: {
+                    title: "系统审核"
+                },
+                children: [
+                    {
+                        path: 'cooperation',
+                        name: 'Cooperation',
+                        component: () => import('../views/Cooperation'),
+                        meta: {
+                            title: "校企合作审核"
+                        }
+                    },
+                ]
+            },
         ]
     },
     {
@@ -90,11 +126,51 @@ const routes = [
         },
         children: [
             {
+                path: 'cooperationEn',
+                name: 'CooperationEn',
+                component: () => import('../views/front/CooperationEn'),
+                meta: {
+                    title: "校企合作管理(企业)"
+                }
+            },
+            {
+                path: 'cooperationSc',
+                name: 'CooperationSc',
+                component: () => import('../views/front/CooperationSc'),
+                meta: {
+                    title: "校企合作管理(企业)"
+                }
+            },
+            {
+                path: 'student',
+                name: 'Student',
+                component: () => import('../views/front/Student'),
+                meta: {
+                    title: "学生管理"
+                }
+            },
+            {
                 path: 'home',
                 name: 'Home',
                 component: () => import('../views/front/Home'),
                 meta: {
                     title: "主页"
+                },
+            },
+            {
+                path: 'resume',
+                name: 'Resume',
+                component: () => import('../views/front/Resume'),
+                meta: {
+                    title: "简历"
+                },
+            },
+            {
+                path: 'resumeDetail',
+                name: 'ResumeDetail',
+                component: () => import('../views/front/ResumeDetail'),
+                meta: {
+                    title: "简历详情"
                 },
             },
         ]

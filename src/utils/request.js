@@ -34,6 +34,10 @@ request.interceptors.response.use(
         if (typeof res === 'string') {
             res = res ? JSON.parse(res) : res
         }
+        switch (res.code){
+            case "200" :
+                break;
+        }
         if (res.code === "200") {
             /*ElementUI.Message({
                 message: res.message,

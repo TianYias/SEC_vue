@@ -40,7 +40,7 @@ export default {
   data() {
     return {
       user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,
-      imgUrlHead: "http://r9lhttmxk.hd-bkt.clouddn.com/",//查询图片前缀
+      imgUrlHead: "http://rc2tjc4h6.hd-bkt.clouddn.com/",//查询图片前缀
     }
   },
   methods: {

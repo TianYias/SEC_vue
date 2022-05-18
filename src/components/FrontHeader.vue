@@ -23,6 +23,7 @@
         </el-submenu>
         <el-menu-item index="3" disabled>消息中心</el-menu-item>
         <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">校企合作</a></el-menu-item>
+        <el-menu-item index="/front/resume">简历管理</el-menu-item>
       </el-menu>
     </div>
     <div style="width: 200px; margin-right: 30px">
@@ -62,7 +63,7 @@ export default {
   data() {
     return {
       user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,
-      imgUrlHead: "http://r9lhttmxk.hd-bkt.clouddn.com/",//查询图片前缀
+      imgUrlHead: "http://rc2tjc4h6.hd-bkt.clouddn.com/",//查询图片前缀
     }
   },
   methods: {

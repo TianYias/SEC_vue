@@ -1,3 +1,4 @@
+<!--学生管理界面-->
 <template>
   <div>
     <!--        搜索栏-->
@@ -138,7 +139,7 @@ export default {
       total: 0,//总条数
       queryString: null,//查询条件
       newQueryString: null,//新查询条件
-      imgUrlHead: "http://r9lhttmxk.hd-bkt.clouddn.com/",//查询图片前缀
+      imgUrlHead: "http://rc2tjc4h6.hd-bkt.clouddn.com/",//查询图片前缀
       formName: null,//表单名字
       dialogFormVisible: false,//新增表单是否可见
       dialogFormVisible4Edit: true,//编辑表单是否可见
