@@ -23,8 +23,8 @@
                 :value="item.value">
             </el-option>
           </el-select>
-          <el-button type="primary" size="small" aria-autocomplete="off" @click="login">注册</el-button>
-          <el-button type="warning" size="small" aria-autocomplete="off">登录</el-button>
+          <el-button type="primary" size="small" aria-autocomplete="off" @click="register">注册</el-button>
+          <el-button type="warning" size="small" aria-autocomplete="off" @click="$router.push('/login')">登录</el-button>
         </el-form-item>
 
       </el-form>
@@ -59,17 +59,11 @@ export default {
       }, {
         value: '2',
         label: '企业'
-      }, {
-        value: '3',
-        label: '学生'
-      }, {
-        value: '4',
-        label: '管理员'
       }],
     }
   },
   methods: {
-    login() {
+    register() {
       this.$refs["userForm"].validate((valid) => {
         if (valid) {
           this.request.post("/login", this.user).then(res => {

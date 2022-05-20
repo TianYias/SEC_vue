@@ -11,7 +11,7 @@ const routes = [
         meta: {
             title: "首页"
         },
-        redirect: '/login',
+        redirect: '/front/home',
         children: [
             {
                 path: 'home',
@@ -79,6 +79,22 @@ const routes = [
                             title: "校企合作管理"
                         }
                     },
+                    {
+                        path: 'activity',
+                        name: 'Activity',
+                        component: () => import('../views/Activity'),
+                        meta: {
+                            title: "校企活动管理"
+                        }
+                    },
+                    {
+                        path: 'internship',
+                        name: 'Internship',
+                        component: () => import('../views/Internship'),
+                        meta: {
+                            title: "岗位管理"
+                        }
+                    },
                 ]
             },
             {
@@ -126,6 +142,22 @@ const routes = [
         },
         children: [
             {
+                path: 'internship',
+                name: 'Internship',
+                component: () => import('../views/front/Internship'),
+                meta: {
+                    title: "岗位管理(企业)"
+                }
+            },
+            {
+                path: 'internshipStu',
+                name: 'InternshipStu',
+                component: () => import('../views/front/InternshipStu'),
+                meta: {
+                    title: "岗位管理(学生)"
+                }
+            },
+            {
                 path: 'cooperationEn',
                 name: 'CooperationEn',
                 component: () => import('../views/front/CooperationEn'),
@@ -138,7 +170,23 @@ const routes = [
                 name: 'CooperationSc',
                 component: () => import('../views/front/CooperationSc'),
                 meta: {
-                    title: "校企合作管理(企业)"
+                    title: "校企合作管理(学校)"
+                }
+            },
+            {
+                path: 'activitySc',
+                name: 'ActivitySc',
+                component: () => import('../views/front/ActivitySc'),
+                meta: {
+                    title: "校企活动管理(学校)"
+                }
+            },
+            {
+                path: 'activitySt',
+                name: 'ActivitySt',
+                component: () => import('../views/front/ActivitySt'),
+                meta: {
+                    title: "校企活动管理(学生)"
                 }
             },
             {

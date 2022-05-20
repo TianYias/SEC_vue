@@ -3,7 +3,7 @@
     <el-container>
 
       <el-header padding-left:0px>
-        <div style="box-shadow: 1px 0 6px rgb(0 21 41 / 35%)">
+        <div style="box-shadow: 1px 0 6px rgb(0 21 41 / 35%);">
           <FrontHeader/>
         </div>
       </el-header>

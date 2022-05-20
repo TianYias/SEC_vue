@@ -6,7 +6,7 @@
       <el-form :model="user" :rules="rules" ref="userForm">
         <el-form-item prop="name">
           <el-input size="medium" style="margin: 10px 0" prefix-icon="el-icon-user" v-model="user.nameNumber"
-                    placeholder="账号/手机号"/>
+                    placeholder="手机号"/>
         </el-form-item>
         <el-form-item prop="password">
           <el-input size="medium" style="margin: 10px 0" prefix-icon="el-icon-lock" v-model="user.password"

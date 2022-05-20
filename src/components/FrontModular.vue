@@ -26,7 +26,7 @@
                 </el-col>
               </a>
 
-              <a href="Front.vue">
+              <a href="/front/internship">
                 <el-col :span="8" align="center">
                   <el-button :disabled="!(user.type === 2)" class="box-card" shadow="hover" text-align="center" :body-style="{padding:'10px'}">
                     <div>
@@ -81,7 +81,7 @@
                 </el-col>
               </a>
 
-              <a href="Front.vue">
+              <a href="/front/activitySc">
                 <el-col :span="8" align="center">
                   <el-button :disabled="!(user.type === 1)" class="box-card" shadow="hover" text-align="center" :body-style="{padding:'10px'}">
                     <div>
@@ -122,7 +122,7 @@
           </div>
           <div>
             <el-row :gutter="8">
-              <a href="Front.vue">
+              <a href="/front/activitySt">
                 <el-col :span="8" align="center">
                   <el-button :disabled="!(user.type === 3)" class="box-card" shadow="hover" text-align="center" :body-style="{padding:'10px'}">
                     <div>
@@ -135,7 +135,7 @@
                 </el-col>
               </a>
 
-              <a href="Front.vue">
+              <a href="/front/internshipStu">
                 <el-col :span="8" align="center">
                   <el-button :disabled="!(user.type === 3)" class="box-card" shadow="hover" text-align="center" :body-style="{padding:'10px'}">
                     <div>
@@ -148,7 +148,7 @@
                 </el-col>
               </a>
 
-              <a href="/front/resume">
+              <a href="/front/resume/">
                 <el-col :span="8" align="center">
                   <el-button :disabled="!(user.type === 3)" class="box-card" shadow="hover" text-align="center" :body-style="{padding:'10px'}">
                     <div>

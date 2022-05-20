@@ -22,8 +22,8 @@
 <!--             style="width: 30px; height: 30px;border-radius: 50%; position: relative; top: 10px; right: 10px;"/>-->
         <span style="margin-right: 5px">{{ user.nickname }}</span><i class="el-icon-arrow-down" style="margin-right: 5px"></i>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>个人信息</el-dropdown-item>
-          <el-dropdown-item>设置</el-dropdown-item>
+<!--          <el-dropdown-item>个人信息</el-dropdown-item>
+          <el-dropdown-item>设置</el-dropdown-item>-->
           <el-dropdown-item>
             <span style="text-decoration: none" @click="logout">退出</span>
           </el-dropdown-item>

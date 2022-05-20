@@ -33,7 +33,8 @@
         <span slot="title">平台维护</span>
       </template>
       <el-menu-item index="/Maintain/cooperation">校企合作管理</el-menu-item>
-      <el-menu-item index="/Maintain.vue/enterprise">校企活动管理</el-menu-item>
+      <el-menu-item index="/Maintain/activity">校企活动管理</el-menu-item>
+      <el-menu-item index="/Maintain/internship">岗位管理</el-menu-item>
 
     </el-submenu>
     <el-submenu index="3">
